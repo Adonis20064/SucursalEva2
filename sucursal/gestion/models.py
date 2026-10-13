@@ -20,6 +20,8 @@ class Producto(models.Model):
                                 on_delete=models.PROTECT,
                                 related_name='productos'
     )
+    
+    
     def __str__(self):
         return f'{self.nombre} ({self.sku})'
 
@@ -30,6 +32,10 @@ class Sucursal(models.Model):
     telefono = models.CharField(max_length=20)
     fecha_apertura = models.DateField()
     activo = models.BooleanField(default=True) #Si la sucursal esta activa o no
+    
+    class Meta:
+        verbose_name_plural = "Sucursales" #para que en el admin de django se vea Sucursales en vez de Sucursal
+        ordering = ['nombre'] #para que en el admin de django se ordene por nombre
 
     def __str__(self):
         return f'{self.nombre} - {self.ciudad}'
@@ -64,8 +70,10 @@ class Inventario(models.Model):
     #Creamos la clase meta para decirle como debe comportarse el modelo y darle un nombre a la restriccion
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['sucursal', 'producto'], name='unique_inventario')
+            models.UniqueConstraint(fields=['sucursal', 'producto'], name='unique_inventario', )
+            
         ]
         
+
     def __str__(self):
         return f'{self.producto.nombre} - {self.sucursal.nombre} - Stock: {self.stock}'
