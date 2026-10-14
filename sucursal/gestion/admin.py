@@ -37,3 +37,7 @@ class InventarioAdmin(admin.ModelAdmin):
     list_select_related = ('sucursal', 'producto') #list_select_related es una tupla que indica los campos por los que se puede hacer select_related en la lista de inventarios, sucursal y producto son para hacer select_related con la sucursal y el producto del inventario
     
     
+    
+#python manage.py poblar_datos 100 --limpiar
+#python manage.py poblar_datos 1000 --limpiar
+#python manage.py poblar_datos 100000 --limpiar
